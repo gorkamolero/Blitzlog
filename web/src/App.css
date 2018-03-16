@@ -13,10 +13,10 @@ body {
 }
 
 .App-header {
-  padding: 3em;
+  padding: 3em 1em;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 main {
@@ -52,6 +52,19 @@ button:hover {
   color:black;
   background-color:white;
 }
+
+a, a:visited {
+  color: white;
+  text-decoration: underline;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+}
+  nav a {
+    padding: 1em;
+  }
 
 ul {
   padding: 1.618em;

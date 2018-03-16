@@ -6,45 +6,48 @@ import Books from './Books'
 import Book from './Book'
 import './App.css'
 
-function BookButton({books, clicker}) {
-  if(!books) return <button onClick={clicker}>Get books from API</button>
-  return (null)
-}
-
 
 class App extends Component {
-  state = { books: null }
+  state = {
+    books: null,
+    currentBook: null
+  }
 
-  handleClick = async e => {
-    const response = await fetch('books/')
+  initBooks = async e => {
+    const response = await fetch('/books/')
     const books = await response.json()
-    this.setState({
-      books: books
-    });
-  };
+
+    this.setState({books: books})
+  }
+
+  getCurrentBook = (book) => {
+    this.setState({currentBook: book.bookTitle})
+  }
 
   render() {
+    const books = this.state.books
     return (
       <Router>
         <div className='App'>
 
           <div className='App-header'>
-            <h2>Blitz!'s Blog From the Future</h2>
+            <h2>Blitz!'s SciFi Blog From the Future</h2>
+
+            <nav>
+              <Link to='/'>Home</Link>
+              <Link to='/books/'>Books</Link>
+            </nav>
           </div>
-
-          <Route exact path='/' component={Home} />
-          <Route path='/books/' component={Books} />
-          <Route path='/books/:bookTitle' component={Book} />
-
           <main>
-            <BookButton books={this.state.books} clicker={this.handleClick} />
-            <Books books={this.state.books} />
+            <Route exact path='/' component={Home} />
+            <Route path='/books/' render={() => <Books getBooks={this.initBooks} books={books} />}/>
+            <Route path='/books/:bookTitle' render={({ match }) => <Book match={match} getCurrentBook={this.getCurrentBook} currentBook={this.state.currentBook} />}/>
           </main>
 
           <Stars />
         </div>
       </Router>
-    );
+    )
   }
 }
 
