@@ -14,9 +14,12 @@ const authors = [
 
 const app = express()
 
-app.get('/', (req, res) => res.send('Hello World!'))
+const getBooks = (req, res) => {
+  res.send(books)
+}
 
-app.get('/api', (req, res) => res.send('Yo yo yooooo'))
+app.get('/', (req, res) => res.send('Hello World!'))
+app.get('/books/', getBooks)
 
 
 app.listen(8080, () => console.log('Yo! I\'m Blitz!\'s first blog! '))

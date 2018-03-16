@@ -1,12 +1,5 @@
-import React from "react";
-
-function Book(book) {
-  return (
-    <li key={book.title}>
-      <strong>{book.title}</strong> from {book.author}
-    </li>
-  );
-}
+import React from 'react'
+import Book from './Book'
 
 function Books(props) {
   if (!props || !props.books) return null;

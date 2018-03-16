@@ -1,24 +1,69 @@
+body {
+  background: black;
+  color: white;
+  font-family: 'Fira+Mono', monospace;
+  font-weight: normal;
+  min-height: 100vh;
+  font-size: 14px;
+  line-height: 1.2;
+}
+
 .App {
   text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
 .App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+  padding: 3em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.App-intro {
-  font-size: large;
+main {
+  padding: 3em;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Exo', sans-serif;
+  font-weight: lighter;
 }
+
+h2 { font-size: 1.4em;}
+
+button {
+  appearance: none;
+  display:inline-block;
+  padding:0.35em 1.2em;
+  background: transparent;
+  border:0.1em solid white;
+  margin:0 0.3em 0.3em 0;
+  border-radius:0.12em;
+  box-sizing: border-box;
+  text-decoration:none;
+  font-family:'Exo',sans-serif;
+  font-weight:300;
+  font-size: 1em;
+  color:white;
+  text-align:center;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+button:hover {
+  color:black;
+  background-color:white;
+}
+
+ul {
+  padding: 1.618em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+  ul li {
+    padding: .618em;
+    text-align: center;
+    flex: 1;
+  }
+  ul li + li {
+    border-left: 1px solid rgba(255, 255, 255, .5)
+  }
