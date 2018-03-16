@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/bin/yarn remove react-router-dom
+  /usr/local/bin/node /usr/local/bin/yarn start
 
 PATH: 
   /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/MacGPG2/bin
@@ -16,6 +16,9 @@ Platform:
 npm manifest: 
   {
     "name": "react-express-starterkit",
+    "quokka": {
+      "babel": true
+    }
     "version": "0.1.0",
     "private": true,
     "scripts": {
@@ -29,7 +32,9 @@ npm manifest:
     "devDependencies": {
       "npm-run-all": "^4.0.2"
     },
-    "dependencies": {}
+    "dependencies": {
+      "react-router-dom": "^4.2.2"
+    }
   }
 
 yarn manifest: 
@@ -574,10 +579,9 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/yallist/-/yallist-2.1.2.tgz#1c11f9218f076089a47dd512f93c6699a6a81d52"
 
 Trace: 
-  Error: This module isn't specified in a manifest.
-      at MessageError.Error (native)
-      at new MessageError (/usr/local/lib/node_modules/yarn/lib/cli.js:186:110)
-      at Object.<anonymous> (/usr/local/lib/node_modules/yarn/lib/cli.js:60445:15)
+  SyntaxError: /Users/gorko/www/Blitzlog/package.json: Unexpected string in JSON at position 78
+      at Object.parse (native)
+      at /usr/local/lib/node_modules/yarn/lib/cli.js:1036:59
       at next (native)
       at step (/usr/local/lib/node_modules/yarn/lib/cli.js:98:30)
       at /usr/local/lib/node_modules/yarn/lib/cli.js:109:13

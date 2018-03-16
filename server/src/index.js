@@ -1,4 +1,4 @@
-import express from 'express'
+import express from 'express';
 
 const books = [
   {
@@ -16,16 +16,23 @@ const books = [
     author: 'Edwin A. Abbott',
     summary: 'Written pseudonymously by "A Square" the book used the fictional two-dimensional world of Flatland to comment on the hierarchy of Victorian culture, but the novella\'s more enduring contribution is its examination of dimensions.'
   }
-]
+];
 
-const app = express()
+const app = express();
 
 const getBooks = (req, res) => {
   res.send(books)
-}
+  console.log('Getting your books, sir')
+};
 
-app.get('/', (req, res) => res.send('Hello World!'))
-app.get('/books/', getBooks)
+const getOneBook = (req, res) => {
+  console.log(req.params)
+  console.log('Im not workin')
+};
+
+app.get('/', (req, res) => res.send('Hello World!'));
+app.get('/b/:bookTitle', getOneBook);
+app.get('/books/', getBooks);
 
 
-app.listen(8080, () => console.log('Yo! I\'m Blitz!\'s first blog! '))
+app.listen(8080, () => console.log('Yo! I\'m Blitz!\'s first blog! '));

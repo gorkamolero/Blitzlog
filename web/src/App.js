@@ -41,6 +41,7 @@ class App extends Component {
           <main>
             <Route exact path='/' component={Home} />
             <Route path='/books/' render={() => <Books getBooks={this.initBooks} books={books} />}/>
+            <Route path='/random/' component={Home}/>
             <Route path='/books/:bookTitle' render={({ match }) => <Book match={match} getCurrentBook={this.getCurrentBook} currentBook={this.state.currentBook} />}/>
           </main>
 
