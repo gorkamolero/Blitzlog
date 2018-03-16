@@ -1,43 +1,22 @@
-import http from "http";
-import express from "express";
-import cors from "cors";
-import morgan from "morgan";
-import bodyParser from "body-parser";
-import initializeDb from "./db";
-import middleware from "./middleware";
-import routes from "./routes";
-import config from "./config.json";
+import express from 'express'
 
-async function start() {
-  let app = express();
-  app.server = http.createServer(app);
+const books = [
+  { title: 'Walden', author: 'H. D. Thoreau' },
+  { title: 'Dune', author: 'Frank Herbert' },
+  { title: 'Flatland', author: 'Edwin A. Abbott' }
+]
 
-  // logger
-  app.use(morgan("dev"));
+const authors = [
+  { name: 'H. D. Thoreau', country: 'USA' },
+  { name: 'Frank Herbert', country: 'USA' },
+  { name: 'Edwin A. Abbott', country: 'UK' }
+]
 
-  // 3rd party middleware
-  app.use(
-    cors({
-      exposedHeaders: config.corsHeaders
-    })
-  );
+const app = express()
 
-  app.use(
-    bodyParser.json({
-      limit: config.bodyLimit
-    })
-  );
+app.get('/', (req, res) => res.send('Hello World!'))
 
-  const db = await initializeDb();
+app.get('/api', (req, res) => res.send('Yo yo yooooo'))
 
-  // internal middleware
-  app.use(middleware({ config, db }));
 
-  // api router
-  app.use("/api", routes({ config, db }));
-
-  app.server.listen(process.env.PORT || config.port);
-  console.log(`Started on port ${app.server.address().port}`);
-}
-
-start();
+app.listen(8080, () => console.log('Yo! I\'m Blitz!\'s first blog! '))
