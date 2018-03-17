@@ -1,48 +1,62 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom'
 import Stars from './SciFi'
+import Ascii from './Ascii'
 import Home from './Home'
-import Books from './Books'
-import Book from './Book'
+import Posts from './Posts'
+import Post from './Post'
+
 import './App.css'
 
 
 class App extends Component {
   state = {
-    books: null,
-    currentBook: null
+    posts: null,
+    currentPost: null
   }
 
-  initBooks = async e => {
-    const response = await fetch('/books/')
-    const books = await response.json()
+  initPosts = async e => {
+    const response = await fetch('/api/posts/')
+    const posts = await response.json()
 
-    this.setState({books: books})
+    this.setState({posts: posts})
   }
 
-  getCurrentBook = (book) => {
-    this.setState({currentBook: book.bookTitle})
+  initPost = async ({slug}) => {
+    const response = await fetch(`/api/posts/${slug}`)
+    console.log(response)
+    const post = await response.json()
+    this.setState({currentPost: post})
+    //
+    // const post = await response.json()
+    // console.log(response)
+
   }
 
   render() {
-    const books = this.state.books
+    const {posts, currentPost} = this.state
+
     return (
       <Router>
         <div className='App'>
 
           <div className='App-header'>
-            <h2>Blitz!'s SciFi Blog From the Future</h2>
-
+            <Ascii />
+            <br/>
+            <h2>The Invasion</h2>
             <nav>
-              <Link to='/'>Home</Link>
-              <Link to='/books/'>Books</Link>
+              <NavLink exact to='/' activeClassName='is-active'>Home</NavLink>
+              <NavLink to='/journal/' activeClassName='is-active'>Journal</NavLink>
             </nav>
           </div>
           <main>
             <Route exact path='/' component={Home} />
-            <Route path='/books/' render={() => <Books getBooks={this.initBooks} books={books} />}/>
-            <Route path='/random/' component={Home}/>
-            <Route path='/books/:bookTitle' render={({ match }) => <Book match={match} getCurrentBook={this.getCurrentBook} currentBook={this.state.currentBook} />}/>
+            <Route path='/journal/:slug' render={({match}) =>
+              <Post getThePost={this.initPost} post={currentPost} match={match} />
+            }/>
+            <Route path='/journal/' render={() =>
+              <Posts getPosts={this.initPosts} posts={posts} />
+            }/>
           </main>
 
           <Stars />
@@ -52,4 +66,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default App
