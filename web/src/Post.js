@@ -1,15 +1,28 @@
 import React from 'react'
 
 export default class Post extends React.Component {
-  componentDidMount() {
-    const {params} = this.props.match
-    this.props.getThePost(params)
-  }
-  render() {
-    //const {title, date, author, excerpt} = this.props.post
+  state = {}
 
-    if(this.props.post != null) {
-      const {title, date, author, excerpt} = this.props.post
+  componentDidMount() {
+    console.log('MOUNT', this.props)
+    if (!this.props.title) {
+      this.fetchPostBySlug(this.props.slug)
+    }
+  }
+
+  async fetchPostBySlug(slug) {
+    console.log('FETCHING AGAIN!! -- good!!')
+    const response = await fetch(`/api/posts/${slug}`)
+    const post = await response.json()
+    console.log("HELP", post)
+    this.setState({ post })
+  }
+
+  render() {
+    const post = this.props.title ? this.props : this.state.post
+
+    if (post) {
+      const { title, date, author, excerpt } = post
 
       return (
         <article>
@@ -23,6 +36,7 @@ export default class Post extends React.Component {
         </article>
       )
     }
+
     return null
   }
 }
