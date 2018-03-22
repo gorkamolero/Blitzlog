@@ -9,7 +9,15 @@ export default class Posts extends Component {
   }
 
   async fetchPosts() {
-    const response = await fetch('/api/posts/')
+    const isUser = this.props.match.path.includes('user')
+    console.log('Is it a user call? -> ' + isUser)
+
+    const apiPath = isUser
+      ? '/api/users/sancho-panza'
+      : '/api/posts'
+
+
+    const response = await fetch(apiPath)
     const posts = await response.json()
     this.setState({ posts })
   }
@@ -34,7 +42,7 @@ const postStyle = {
 
 const PostItem = (post) => {
   const { title, slug, date, author } = post
-  
+
   return (
     <li>
       <Link

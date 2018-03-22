@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import { Route, NavLink, withRouter, matchPath } from 'react-router-dom'
+// import { Route, NavLink } from 'react-router-dom'
 import Stars from './SciFi'
 import Ascii from './Ascii'
 import Home from './Home'
+import Users from './Users'
 import Posts from './Posts'
 import Post from './Post'
 
@@ -11,11 +13,13 @@ import './App.css'
 
 class App extends Component {
   state = {
-    posts: []
+    posts: [],
+    users: []
   }
 
   componentDidMount() {
     this.fetchPosts()
+    this.fetchUsers()
   }
 
   // componentWillReceiveProps(nextProps) {
@@ -34,8 +38,14 @@ class App extends Component {
     this.setState({ posts })
   }
 
+  async fetchUsers() {
+    const response = await fetch('/api/users')
+    const users = await response.json()
+    this.setState({ users })
+  }
+
   render() {
-    const { posts, currentPost } = this.state
+    const { posts, users, currentPost } = this.state
 
     return (
       <div className='App'>
@@ -46,9 +56,10 @@ class App extends Component {
           <nav>
             <NavLink exact to='/' activeClassName='is-active'>Home</NavLink>
             <NavLink to='/posts/' activeClassName='is-active'>Posts</NavLink>
+            <NavLink to='/users/' activeClassName='is-active'>Users</NavLink>
           </nav>
         </div>
-    
+
         <main>
           <Route exact path='/' component={Home} />
           <Route path='/post/:slug' render={({ match }) => {
@@ -59,15 +70,18 @@ class App extends Component {
           <Route path='/posts/' render={() => (
             <Posts posts={posts} />
           )} />
+          <Route path='/users/' component={Users} />
+          <Route path='/user/:slug' render={({ match }) => (
+            <Posts posts={posts} match={match} />
+          )} />
         </main>
-    
+
         <Stars />
       </div>
     )
   }
 }
- 
+
 
 export default App
 // export default withRouter(App) // HoC -- Higher Order Component
-
