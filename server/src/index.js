@@ -70,13 +70,8 @@ const findPostByUserSlug = async (req, res) => {
   const { slug } = req.params
   const user = await User.findOne({ slug })
 
-  const posts = await Post.find({'userId': user.id}, (e, p) => {
-    p.forEach(post => {
-      post.author = user;
-    })
-    res.json(posts)
-    console.log(posts)
-  })
+  const posts = await Post.find({'userId': user.id})
+  res.send({posts: posts, user: user})
 }
 
 
