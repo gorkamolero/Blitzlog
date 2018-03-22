@@ -5,7 +5,14 @@ import posts from './dbTmp';
 mongoose.connect('mongodb://localhost/blitz')
 
 mongoose.connection.on('error', (e) => console.log('ERROR', e))
-mongoose.connection.on('open', () => console.log('SUCCESS'))
+mongoose.connection.on('open', (ref) => {
+  console.log('SUCCESS');
+
+  mongoose.connection.db.listCollections().toArray(function(err, names) {
+    names.forEach((e,i,a) => console.log("--->>", e.name));
+  });
+})
+
 
 const userSchema = mongoose.Schema({
   slug: String,
@@ -23,6 +30,7 @@ const postSchema = mongoose.Schema({
   userId: String,
   text: String,
 })
+
 
 const User = mongoose.model('User', userSchema)
 const Post = mongoose.model('Post', postSchema)
@@ -61,13 +69,20 @@ const findUsers = async (req, res) => {
 const findPostByUserSlug = async (req, res) => {
   const { slug } = req.params
   const user = await User.findOne({ slug })
-  const posts = await Post.find({ userId: user.id })
 
-  console.log(user.id)
-
-  res.json(posts)
-  console.log(posts)
+  const posts = await Post.find({'userId': user.id}, (e, p) => {
+    p.forEach(post => {
+      post.author = user;
+    })
+    res.json(posts)
+    console.log(posts)
+  })
 }
+
+
+
+
+
 
 app.get('/', (req, res) => res.send('Hello World!'))
 app.get('/api/users/', findUsers)

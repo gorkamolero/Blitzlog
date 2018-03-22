@@ -19,6 +19,7 @@ export default class Posts extends Component {
 
     const response = await fetch(apiPath)
     const posts = await response.json()
+    console.log(posts)
     this.setState({ posts })
   }
 
