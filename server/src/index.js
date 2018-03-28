@@ -29,19 +29,12 @@ const postSchema = mongoose.Schema({
   excerpt: String,
   userId: String,
   text: String,
-})
+  //author: [{ type: mongoose.Schema.ObjectId, ref: 'User' }]
+}, { strict: false })
 
 
 const User = mongoose.model('User', userSchema)
 const Post = mongoose.model('Post', postSchema)
-
-
-
-// User.find({}, (err, users) => {
-//   if (err) return handleError(err);
-//   // Prints "Space Ghost is a talk show host".
-//   users.forEach(u => console.log(u.job + ': ' + u.id))
-// });
 
 
 
@@ -51,7 +44,15 @@ const app = express();
 
 
 const findPosts = async (req, res) => {
-  const posts = await Post.find()
+  const posts = await Post.find(
+    //   {}, (err, posts) => {
+    //   posts.forEach((post) => {
+    //     let author = User.findOne({ id: post.userId })
+    //     post.author = author
+    //   })
+    // }
+  )
+
   res.json(posts)
 }
 
@@ -68,10 +69,13 @@ const findUsers = async (req, res) => {
 
 const findPostByUserSlug = async (req, res) => {
   const { slug } = req.params
-  const user = await User.findOne({ slug })
+  const author = await User.findOne({ slug })
 
-  const posts = await Post.find({'userId': user.id})
-  res.send({posts: posts, user: user})
+  let posts = await Post.find({'userId': author.id})
+  posts = posts.map(post => Object.assign({}, post._doc, {author}))
+
+
+  res.json(posts)
 }
 
 

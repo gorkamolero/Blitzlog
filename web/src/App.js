@@ -67,8 +67,8 @@ class App extends Component {
             const currentPost = this.state.posts.find(p => p.slug === slug)
             return <Post {...currentPost} slug={slug} />
           }} />
-          <Route path='/posts/' render={() => (
-            <Posts posts={posts} />
+          <Route path='/posts/' render={({ match }) => (
+            <Posts posts={posts} match={match} />
           )} />
           <Route path='/users/' component={Users} />
           <Route path='/user/:slug' render={({ match }) => (

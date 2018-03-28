@@ -11,9 +11,10 @@ export default class Posts extends Component {
   async fetchPosts() {
     const isUser = this.props.match.path.includes('user')
     console.log('Is it a user call? -> ' + isUser)
+    const {slug} = this.props.match.params
 
     const apiPath = isUser
-      ? '/api/users/sancho-panza'
+      ? `/api/users/${slug}`
       : '/api/posts'
 
 
