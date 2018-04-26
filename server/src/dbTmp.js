@@ -1,4 +1,4 @@
-const Users = [
+const users = [
   {
     'slug': 'chadwick-lockley',
     'firstName': 'Chadwick',
@@ -22,14 +22,8 @@ const Users = [
   }
 ]
 
-const uploadUsers = (Users) => {
-  Users.forEach(u => {
-    const user = new User(u)
-    user.save(function (err) {
-      if (err) return handleError(err);
-      console.log('Saved user: ' + u.firstName)
-    })
-  })
+export const uploadUsers = (User) => {
+  users.forEach(u => new User(u).save())
 }
 
 

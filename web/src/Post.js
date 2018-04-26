@@ -19,16 +19,17 @@ export default class Post extends React.Component {
   }
 
   render() {
-    const post = this.props.title ? this.props : this.state.post
+    const post = this.state.post || this.props
 
     if (post) {
       const { title, date, author, excerpt } = post
+      const authorName = author && author.firstName ? author.firstName : 'n/a'
 
       return (
         <article>
           <time>{date}</time>
           <h2>{title}</h2>
-          <small>by {author}</small>
+          <small>by {authorName}</small>
           <br/>
           <div className="content">
             <p>{excerpt}</p>

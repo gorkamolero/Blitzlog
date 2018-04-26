@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 
-export default class Posts extends Component {
+export default class Users extends Component {
   state = {}
 
   componentDidMount() {
@@ -17,17 +18,24 @@ export default class Posts extends Component {
     const { users } = this.state
 
     if (!users) return null
-    return <ul>{users.map(u => <UserItem {...u} key={u.firstName} />)}</ul>
+    return <ul>{users.map(u => <UserItem {...u} key={u._id} />)}</ul>
   }
 }
 
 const UserItem = (user) => {
-  const { firstName, lastName, job, age } = user
+  const { firstName, lastName, job, age, slug } = user
 
   return (
     <li>
       <article className="user">
-        <h2>{firstName} {lastName}</h2>
+        <Link
+          className="postInPostlist"
+          to={{ pathname: `/user/${slug}`, state: user }}
+          style={{ textDecoration: 'underline', color: 'pink' }}
+        >
+          <h2>{firstName} {lastName}</h2>
+        </Link>
+
         <h3>{job}</h3>
         <h3>Age: {age}</h3>
       </article>

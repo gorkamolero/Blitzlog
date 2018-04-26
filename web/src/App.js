@@ -5,6 +5,7 @@ import Stars from './SciFi'
 import Ascii from './Ascii'
 import Home from './Home'
 import Users from './Users'
+import User from './User'
 import Posts from './Posts'
 import Post from './Post'
 
@@ -71,9 +72,7 @@ class App extends Component {
             <Posts posts={posts} match={match} />
           )} />
           <Route path='/users/' component={Users} />
-          <Route path='/user/:slug' render={({ match }) => (
-            <Posts posts={posts} match={match} />
-          )} />
+          <Route path='/user/:slug' component={User} />
         </main>
 
         <Stars />
