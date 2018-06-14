@@ -19,8 +19,7 @@ const postSchema = new mongoose.Schema({
   date: String,
   slug: String,
   excerpt: String,
-  userId: mongoose.Schema.Types.ObjectId, // http://mongoosejs.com/docs/schematypes.html (makes it searchable -- cant use string)
-  author: Object,
+  author: mongoose.Schema.Types.ObjectId, // http://mongoosejs.com/docs/schematypes.html (makes it searchable -- cant use string)
   text: String,
 }, { strict: false })
 
@@ -48,13 +47,17 @@ const app = express();
 
 const findPosts = async (req, res) => {
   let posts = await Post.find()
-  posts = await Promise.all(posts.map(async post => {
-    post.author = post.userId
-      ? await User.findById(post.userId)
-      : { firstName: post.author } // temporary workaround until you update your database
+    .populate({ path: 'author', model: User })
 
-    return post
-  }))
+
+  // Promise-all way
+    // posts = await Promise.all(posts.map(async post => {
+    //   post.author = post.userId
+    //     ? await User.findById(post.userId)
+    //     : { firstName: post.author } // temporary workaround until you update your database
+    //
+    //   return post
+    // }))
   res.json(posts)
 }
 
