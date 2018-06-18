@@ -55,7 +55,7 @@ const PostItem = (post) => {
         <div className="title">
           <h3 style={postStyle}>{title}</h3>
         </div>
-        <p style={{opacity: .8}}>by {author.firstName}</p>
+        <p style={{opacity: .8}}>by {author.firstName} {author.lastName}</p>
       </Link>
     </li>
   )

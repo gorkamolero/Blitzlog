@@ -22,7 +22,7 @@ export default class User extends React.Component {
     if (user && user.posts.length > 0) {
       return (
         <div>
-          <h1 style={{ color: 'pink' }}>Posts by {firstName}:</h1>
+          <h1>Posts by {firstName}:</h1>
 
           {user.posts.map(({ title, date, excerpt, _id }) => (
             <article key={_id}>

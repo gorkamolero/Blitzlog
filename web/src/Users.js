@@ -31,13 +31,13 @@ const UserItem = (user) => {
         <Link
           className="postInPostlist"
           to={{ pathname: `/user/${slug}`, state: user }}
-          style={{ textDecoration: 'underline', color: 'pink' }}
+          style={{ textDecoration: 'underline' }}
         >
           <h2>{firstName} {lastName}</h2>
         </Link>
 
         <h3>{job}</h3>
-        <h3>Age: {age}</h3>
+        <h3 style={{ opacity: .8}}>Age: {age}</h3>
       </article>
     </li>
   )
