@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import UserItem from './UserItem'
 
 export default class Users extends Component {
-  state = {}
+  state = {
+
+  }
 
   componentDidMount() {
     this.fetchUsers()
@@ -16,29 +18,20 @@ export default class Users extends Component {
 
   render() {
     const { users } = this.state
+    const { admin } = this.props
+
+    let greeting;
+    if(admin) greeting = 'Who\'s accessing the machine?'
+    else greeting = 'Our very own aspiring writers'
 
     if (!users) return null
-    return <ul>{users.map(u => <UserItem {...u} key={u._id} />)}</ul>
+    return (
+      <div>
+        <h1 style={{ display: 'inline-block', opacity: '.8', borderBottom: '1px solid' }}>
+          {greeting}
+        </h1>
+        <ul>{users.map(u => <UserItem {...u} loggedIn={admin} key={u._id} />)}</ul>
+      </div>
+    )
   }
-}
-
-const UserItem = (user) => {
-  const { firstName, lastName, job, age, slug } = user
-
-  return (
-    <li>
-      <article className="user">
-        <Link
-          className="postInPostlist"
-          to={{ pathname: `/user/${slug}`, state: user }}
-          style={{ textDecoration: 'underline' }}
-        >
-          <h2>{firstName} {lastName}</h2>
-        </Link>
-
-        <h3>{job}</h3>
-        <h3 style={{ opacity: .8}}>Age: {age}</h3>
-      </article>
-    </li>
-  )
 }

@@ -4,21 +4,24 @@ const users = [
     'firstName': 'Chadwick',
     'lastName': 'Lockley',
     'job': 'Field commander',
-    'age': 52
+    'age': 52,
+    'password': 'chad'
   },
   {
     'slug': 'sancho-panza',
     'firstName': 'Sancho',
     'lastName': 'Panza',
     'job': 'Second in command',
-    'age': 38
+    'age': 38,
+    'password': 'sanchez'
   },
   {
     'slug': 'annelle-zavaleta',
     'firstName': 'Annelle',
     'lastName': 'Zavaleta',
     'job': 'Woman in charge',
-    'age': 31
+    'age': 31,
+    'password': 'annellis'
   }
 ]
 
