@@ -11,9 +11,11 @@
     "start:web": "npm start --prefix web"
   },
   "devDependencies": {
+    "body-parser": "^1.18.3",
     "npm-run-all": "^4.0.2"
   },
   "dependencies": {
-    "react-router-dom": "^4.2.2"
+    "react-router-dom": "^4.2.2",
+    "slugify": "^1.3.0"
   }
 }
