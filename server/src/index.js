@@ -19,7 +19,7 @@ const postSchema = new mongoose.Schema({
   date: String,
   slug: String,
   excerpt: String,
-  author: mongoose.Schema.Types.ObjectId, // http://mongoosejs.com/docs/schematypes.html (makes it searchable -- cant use string)
+  author: mongoose.Schema.Types.ObjectId,
   text: String,
 }, { strict: false })
 
