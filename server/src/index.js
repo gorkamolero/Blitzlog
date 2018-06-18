@@ -4,14 +4,8 @@ import { uploadUsers } from './dbTmp';
 
 mongoose.connect('mongodb://localhost/blitz')
 
-mongoose.connection.on('error', (e) => console.log('ERROR', e))
-mongoose.connection.on('open', (ref) => {
-  console.log('⚡️');
-
-  mongoose.connection.db.listCollections().toArray(function(err, names) {
-    names.forEach((e,i,a) => console.log("--->>", e.name));
-  });
-})
+mongoose.connection.on('error', (err) => console.log('ERROR', err))
+mongoose.connection.on('open', () => console.log('⚡️'))
 
 
 const postSchema = new mongoose.Schema({
