@@ -94,11 +94,7 @@ ul {
   }
 
 article {
-  margin-bottom: 2em;
-  
-}
-article .content {
-  padding: 2em 0;
+  margin-top: 2em;
 }
 article time {
   display: inline-block;
@@ -111,4 +107,32 @@ article small {
   display: inline-block;
   opacity: .8;
   font-size: 90%;
+}
+
+form * {
+  width: 100%;
+}
+form * + * {
+  margin-top: 1em;
+}
+
+textarea,
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 1em;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-family: inherit;
+}
+
+textarea { min-height: 30vh; }
+
+input[type="submit"] {
+  -webkit-appearance: none;
+  appearance: none;
+  padding: 1em;
+  font-family: inherit;
+  cursor: pointer;
+  font-size: 110%;
 }
