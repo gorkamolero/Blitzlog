@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
-import { Route, NavLink, withRouter, matchPath } from 'react-router-dom'
+import { Route, NavLink } from 'react-router-dom'
 // import { Route, NavLink } from 'react-router-dom'
 import Stars from './SciFi'
 import Ascii from './Ascii'
 import Home from './Home'
+import Editor from './Editor'
+import Password from './Password'
 import Users from './Users'
 import User from './User'
 import Posts from './Posts'
@@ -46,7 +48,8 @@ class App extends Component {
   }
 
   render() {
-    const { posts, users, currentPost } = this.state
+    //const { posts, users, currentPost } = this.state
+    const { posts } = this.state
 
     return (
       <div className='App'>
@@ -58,6 +61,7 @@ class App extends Component {
             <NavLink exact to='/' activeClassName='is-active'>Home</NavLink>
             <NavLink to='/posts/' activeClassName='is-active'>Posts</NavLink>
             <NavLink to='/users/' activeClassName='is-active'>Users</NavLink>
+            <NavLink to='/admin/' activeClassName='is-active'>Write</NavLink>
           </nav>
         </div>
 
@@ -71,8 +75,14 @@ class App extends Component {
           <Route path='/posts/' render={({ match }) => (
             <Posts posts={posts} match={match} />
           )} />
-          <Route path='/users/' component={Users} />
           <Route path='/user/:slug' component={User} />
+
+          <Route path="/users" render={() => <Users admin={false}/>}/>
+          <Route path="/admin" render={() => <Users admin={true}/>}/>
+
+          <Route path='/login/:slug' component={Password} />
+
+          <Route path='/editor/:slug' component={Editor} />
         </main>
 
         <Stars />
