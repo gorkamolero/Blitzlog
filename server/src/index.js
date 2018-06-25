@@ -59,8 +59,7 @@ const findPosts = async (req, res) => {
 
 const findPost = async (req, res) => {
   const { slug } = req.params
-  const post = await Post.findOne({ slug })
-  post.author = await User.findById(post.userId)
+  const post = await Post.findOne({ slug }).populate({ path: 'author', model: User })
   res.json(post)
 }
 
