@@ -82,7 +82,17 @@ class App extends Component {
 
           <Route path='/login/:slug' component={Password} />
 
-          <Route path='/editor/:slug' component={Editor} />
+          <Route path='/edit/:slug' render={({ match }) => {
+            const { slug } = match.params
+            const currentPost = this.state.posts.find(p => p.slug === slug)
+
+            return <Editor currentPost={currentPost} postSlug={slug} />
+          }} />
+
+          <Route path='/create/:slug/' render={({ match }) => {
+            const { slug } = match.params
+            return <Editor create={true} slug={slug} />
+          }} />
         </main>
 
         <Stars />

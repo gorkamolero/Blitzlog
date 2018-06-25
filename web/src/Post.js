@@ -1,4 +1,5 @@
 import React from 'react'
+import { NavLink } from 'react-router-dom'
 
 export default class Post extends React.Component {
   state = {}
@@ -24,6 +25,8 @@ export default class Post extends React.Component {
     if (post) {
       const { title, date, author, excerpt } = post
       const authorName = author && author.firstName ? author.firstName : 'n/a'
+      const authorSlug = author && author.slug ? author.slug : 'n/a'
+      const editLink = '/edit/' + post.slug;
 
       return (
         <article>
@@ -34,6 +37,9 @@ export default class Post extends React.Component {
           <div className="content">
             <p>{excerpt}</p>
           </div>
+          <button style={{marginTop: '1em'}}>
+            <NavLink to={editLink} activeClassName='is-active'>Edit Post</NavLink>
+          </button>
         </article>
       )
     }

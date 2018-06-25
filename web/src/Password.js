@@ -18,7 +18,7 @@ export default class Password extends Component {
     const {slug} = this.props.match.params
 
     if(this.refs.pass.value === this.state.password) {
-      this.props.history.push(`/editor/${slug}`)
+      this.props.history.push(`/create/${slug}`)
     } else {
       alert('Wrong password, mister')
     }

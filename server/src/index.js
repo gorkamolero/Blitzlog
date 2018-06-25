@@ -92,8 +92,8 @@ const getPass = async (req, res) => {
 }
 
 const submitPost = async (req, res) => {
-  const { authorSlug } = req.params
-  const author = await User.findOne({ authorSlug })
+  const slug = req.params.authorSlug
+  const author = await User.findOne({ slug })
   const authorId = author._id
   console.log(authorId)
 
@@ -115,6 +115,34 @@ const submitPost = async (req, res) => {
   })
 }
 
+const editPost = async (req, res) => {
+  const {slug} = req.body
+
+  const newPost = {
+    'title': req.body.title,
+    'date': req.body.date,
+    'slug': req.body.slug,
+    'author': req.body.author,
+    'text': req.body.text
+  }
+
+  //console.log(req.body)
+
+  const post = await Post.findOneAndUpdate({slug}, newPost)
+  const updatedPost = await Post.findOne({slug})
+  res.json(updatedPost)
+  console.log('Updated post!')
+}
+
+// // update a ninja in the db
+// router.put('/ninjas/:id', function(req, res, next){
+//     Ninja.findByIdAndUpdate({_id: req.params.id}, req.body).then(function(){
+//         Ninja.findOne({_id: req.params.id}).then(function(ninja){
+//             res.send(ninja);
+//         });
+//     }).catch(next);
+// });
+
 
 app.get('/', (req, res) => res.send('Hello World!'))
 app.get('/api/users/', findUsers)
@@ -125,6 +153,7 @@ app.get('/api/posts/:slug', findPost)
 app.get('/api/lastPost/', findLastDate)
 
 app.post('/api/posts/', submitPost)
+app.put('/api/posts/', editPost)
 
 
 app.listen(8080, () => console.log('Yo! I\'m Blitz!\'s first blog! '));
